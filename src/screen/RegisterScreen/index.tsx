@@ -1,14 +1,16 @@
 import { KeyboardAvoidingView, Platform, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import CustomTextInput from '../../component/Input/CustomTextInput'
-import styles from './styles'
 import CustomPasswordTextInput from '../../component/Input/CustomPasswordTextInput'
 import PrimaryButton from '../../component/Button/PrimaryButton'
 import SecondaryButton from '../../component/Button/SecondaryButton'
+import styles from './styles'
 import { AuthStackScreenProps } from '../../navigation/Models/AuthModel'
 
-const LoginScreen = ({navigation}: AuthStackScreenProps<'LoginScreen'>) => {
+const RegisterScreen = ({navigation}: AuthStackScreenProps<'RegisterScreen'>) => {
     const [form, setForm] = useState({
+        userName: '',
+        userNameError: '',
         email: '',
         emailError: '',
         password: '',
@@ -30,8 +32,24 @@ const LoginScreen = ({navigation}: AuthStackScreenProps<'LoginScreen'>) => {
 
         {/* Header */}
         <View style={styles.header}>
-            <Text style={styles.headerText}>Login</Text>
+            <Text style={styles.headerText}>Sign Up</Text>
         </View>
+
+      {/* Username Input */}
+      <CustomTextInput
+        label="Username"
+        placeholder="Enter your username"
+        value={form.userName}
+        onChangeText={(text) => setForm({...form, userName: text})}
+        error={form.userNameError}
+        onBlur={() => {
+            if (form.userName === '') {
+                setForm({...form, userNameError: 'Please enter your username'})
+            } else {
+                setForm({...form, userNameError: ''})
+            }
+        }}
+      />
 
       {/* Email Input */}
       <CustomTextInput
@@ -69,14 +87,14 @@ const LoginScreen = ({navigation}: AuthStackScreenProps<'LoginScreen'>) => {
       {/* Button container */}
       <View style={styles.buttonContainer}>
         <PrimaryButton
-            label="Login"
+            label="Sign Up"
             onPress={() => {}}
         />
         {/* Cancle Button */}
         <SecondaryButton
-            label="Sign Up"
+            label="Login"
             onPress={() => {
-                navigation.navigate('RegisterScreen')
+                navigation.navigate('LoginScreen')
             }}
         />
       </View>
@@ -85,4 +103,4 @@ const LoginScreen = ({navigation}: AuthStackScreenProps<'LoginScreen'>) => {
   )
 }
 
-export default LoginScreen;
+export default RegisterScreen;

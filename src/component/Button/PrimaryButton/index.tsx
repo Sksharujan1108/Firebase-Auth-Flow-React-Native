@@ -12,7 +12,7 @@ const PrimaryButton = (props: PrimaryButtonProps) => {
   return (
     <TouchableOpacity
       style={styles.button}
-      activeOpacity={0.6}
+      activeOpacity={0.5}
       onPress={onPress}
     >
       <Text style={styles.buttonText}>{label}</Text>

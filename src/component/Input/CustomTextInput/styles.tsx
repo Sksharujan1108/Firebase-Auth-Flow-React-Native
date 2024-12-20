@@ -5,7 +5,8 @@ import { RFValue } from "react-native-responsive-fontsize";
 
 const styles = StyleSheet.create({
   wrapper: {
-    padding: hp(2),
+    paddingHorizontal: hp(2),
+    marginBottom: hp(3),
   },
   input: {
     height: hp(6),
