@@ -49,6 +49,7 @@ const RegisterScreen = ({
           .then(() => {
             console.log("User account created & signed in!");
             Alert.alert("Success", "User account created & signed in!");
+            navigation.navigate("LoginScreen");
             // Get the currently signed-in user
             const userId = firebase.auth().currentUser?.uid;
             // Add a new document in collection
