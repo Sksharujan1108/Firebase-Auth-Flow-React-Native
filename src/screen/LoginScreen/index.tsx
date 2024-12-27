@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, Platform, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Alert, KeyboardAvoidingView, Platform, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import CustomTextInput from '../../component/Input/CustomTextInput'
 import styles from './styles'
@@ -6,6 +6,7 @@ import CustomPasswordTextInput from '../../component/Input/CustomPasswordTextInp
 import PrimaryButton from '../../component/Button/PrimaryButton'
 import SecondaryButton from '../../component/Button/SecondaryButton'
 import { AuthStackScreenProps } from '../../navigation/Models/AuthModel'
+import firebase from '../../firebase/firebaseConfig'
 
 const LoginScreen = ({navigation}: AuthStackScreenProps<'LoginScreen'>) => {
     const [form, setForm] = useState({
@@ -14,6 +15,39 @@ const LoginScreen = ({navigation}: AuthStackScreenProps<'LoginScreen'>) => {
         password: '',
         passwordError: ''
     })
+
+    const handleLogin = () => {
+        if (form.email === '') {
+            Alert.alert('Error', 'Please enter your email')
+        } else if (form.password === '') {
+            Alert.alert('Error', 'Please enter your password')
+        } else {
+            try {
+
+                firebase.auth().signInWithEmailAndPassword(form.email, form.password)
+                .then((userCredentials) => {
+                    var user = userCredentials.user;
+                    console.log('get user', user);
+                    
+                    console.log('User account signed in!');
+                    Alert.alert('Success', 'User account signed in!')
+                })
+                .catch((error) => {
+                    if (error.message === 'Firebase: The email address is badly formatted. (auth/invalid-email).') {
+                        Alert.alert('Error', 'The email address is badly formatted.')
+                    } else if (error.message === 'Firebase: There is no user record corresponding to this identifier. The user may have been deleted. (auth/user-not-found).') {
+                        Alert.alert('Error', 'There is no user record corresponding to this identifier. The user may have been deleted.')
+                    } else if (error.message === 'Firebase: The password is invalid or the user does not have a password. (auth/wrong-password).') {
+                        Alert.alert('Error', 'The password is invalid or the user does not have a password.')
+                    } else {
+                        Alert.alert('Error', error.message)
+                    }
+                })
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
 
   return (
     <KeyboardAvoidingView 
@@ -70,7 +104,7 @@ const LoginScreen = ({navigation}: AuthStackScreenProps<'LoginScreen'>) => {
       <View style={styles.buttonContainer}>
         <PrimaryButton
             label="Login"
-            onPress={() => {}}
+            onPress={handleLogin}
         />
         {/* Cancle Button */}
         <SecondaryButton
