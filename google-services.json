@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "358752183673",
+    "project_id": "firbase-auth-flow",
+    "storage_bucket": "firbase-auth-flow.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:358752183673:android:c4cded575ec429a8d27ba8",
+        "android_client_info": {
+          "package_name": "com.sk_sharujan.FirebaseAuth"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhGbqKLKbUIKZfqFZjbgq9-OWb9K0W0a4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
